@@ -23,13 +23,13 @@ votabien.pe  →  [Playwright]  →  cedula.png
 
 La cédula es válida para **Lima Metropolitana** y contiene 5 secciones:
 
-| Sección | Tipo de elección |
-|---|---|
-| Presidente y Vicepresidentes | Marca al candidato de tu preferencia |
-| Senadores – Distrito Único | Nacional, con voto preferencial (1 o 2 números) |
-| Senadores – Distrito Múltiple | Regional, con voto preferencial |
-| Diputados | Con voto preferencial (1 o 2 números) |
-| Parlamento Andino | Con voto preferencial |
+| Sección                        | Tipo de elección                                |
+| ------------------------------- | ------------------------------------------------ |
+| Presidente y Vicepresidentes    | Marca al candidato de tu preferencia             |
+| Senadores – Distrito Único    | Nacional, con voto preferencial (1 o 2 números) |
+| Senadores – Distrito Múltiple | Regional, con voto preferencial                  |
+| Diputados                       | Con voto preferencial (1 o 2 números)           |
+| Parlamento Andino               | Con voto preferencial                            |
 
 ## Requisitos
 
@@ -81,11 +81,11 @@ Generando PDF...
 
 ## Archivos generados
 
-| Archivo | Tamaño aprox. | Descripción |
-|---|---|---|
-| `cedula.png` | ~1.8 MB | Imagen PNG a 2700 × 2931 px |
-| `cedula.svg` | ~6 MB | SVG con imágenes embebidas en base64 |
-| `cedula.pdf` | ~7.3 MB | PDF imprimible con fondo incluido |
+| Archivo        | Tamaño aprox. | Descripción                          |
+| -------------- | -------------- | ------------------------------------- |
+| `cedula.png` | ~1.8 MB        | Imagen PNG a 2700 × 2931 px          |
+| `cedula.svg` | ~50.2 MB      | SVG con imágenes embebidas en base64 |
+| `cedula.pdf` | ~7.3 MB        | PDF imprimible con fondo incluido     |
 
 ## ¿Cómo funciona internamente?
 
