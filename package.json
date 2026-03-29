@@ -6,6 +6,7 @@
     "start": "node descargar-cedula.js"
   },
   "dependencies": {
+    "html-to-image": "^1.11.13",
     "playwright": "^1.51.1"
   }
 }

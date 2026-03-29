@@ -4,6 +4,7 @@ node_modules/
 # Archivos generados por el script (outputs)
 cedula.png
 cedula.pdf
+cedula.svg
 
 # Playwright - navegadores descargados localmente
 /playwright-report/

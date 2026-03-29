@@ -75,6 +75,7 @@ Generando PDF...
 
 ¡Listo! Archivos generados:
   - cedula.png
+  - cedula.svg
   - cedula.pdf
 ```
 
@@ -83,6 +84,7 @@ Generando PDF...
 | Archivo | Tamaño aprox. | Descripción |
 |---|---|---|
 | `cedula.png` | ~1.8 MB | Imagen PNG a 2700 × 2931 px |
+| `cedula.svg` | ~6 MB | SVG con imágenes embebidas en base64 |
 | `cedula.pdf` | ~7.3 MB | PDF imprimible con fondo incluido |
 
 ## ¿Cómo funciona internamente?

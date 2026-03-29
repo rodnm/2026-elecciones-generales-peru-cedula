@@ -6,6 +6,7 @@ const CEDULA_WIDTH = 2700;
 const CEDULA_HEIGHT = 2931;
 const OUTPUT_PNG = 'cedula.png';
 const OUTPUT_PDF = 'cedula.pdf';
+const OUTPUT_SVG = 'cedula.svg';
 
 console.log('Iniciando descarga de cédula de votabien.pe...');
 
@@ -95,6 +96,25 @@ const pngBuffer = await cedulaEl.screenshot({
 writeFileSync(OUTPUT_PNG, pngBuffer);
 console.log(`✓ PNG guardado: ${resolve(OUTPUT_PNG)}`);
 
+// Generar SVG usando html-to-image (inyectado desde node_modules)
+console.log('Generando SVG...');
+await page.addScriptTag({ path: './node_modules/html-to-image/dist/html-to-image.js' });
+
+const svgDataUrl = await page.evaluate(async ({ w, h }) => {
+  const cedula = document.querySelector('.cedula-pattern');
+  return htmlToImage.toSvg(cedula, {
+    width: w,
+    height: h,
+    cacheBust: true,
+    skipFonts: false,
+  });
+}, { w: CEDULA_WIDTH, h: CEDULA_HEIGHT });
+
+// El data URL tiene formato: "data:image/svg+xml;charset=utf-8,<svg...>"
+const svgContent = decodeURIComponent(svgDataUrl.split(',').slice(1).join(','));
+writeFileSync(OUTPUT_SVG, svgContent, 'utf-8');
+console.log(`✓ SVG guardado: ${resolve(OUTPUT_SVG)}`);
+
 // Generar PDF ajustado al tamaño de la cédula
 console.log('Generando PDF...');
 
@@ -113,4 +133,5 @@ console.log(`✓ PDF guardado: ${resolve(OUTPUT_PDF)}`);
 await browser.close();
 console.log('\n¡Listo! Archivos generados:');
 console.log(`  - ${OUTPUT_PNG}`);
+console.log(`  - ${OUTPUT_SVG}`);
 console.log(`  - ${OUTPUT_PDF}`);
