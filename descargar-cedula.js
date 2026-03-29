@@ -96,7 +96,29 @@ const pngBuffer = await cedulaEl.screenshot({
 writeFileSync(OUTPUT_PNG, pngBuffer);
 console.log(`✓ PNG guardado: ${resolve(OUTPUT_PNG)}`);
 
-// Generar SVG usando html-to-image (inyectado desde node_modules)
+// Aislar la cédula: reemplazar el body con solo el elemento cédula,
+// sin ningún otro elemento de la UI del simulador.
+// Esto garantiza que el SVG y el PDF tengan exactamente el mismo
+// contenido limpio que el PNG.
+console.log('Aislando la cédula para SVG y PDF...');
+await page.evaluate(({ w, h }) => {
+  const cedula = document.querySelector('.cedula-pattern');
+
+  // Resetear estilos del elemento para que quede estático y sin transform
+  cedula.style.position = 'static';
+  cedula.style.transform = 'none';
+  cedula.style.width = w + 'px';
+  cedula.style.height = h + 'px';
+
+  // Reemplazar body con solo la cédula
+  document.body.replaceChildren(cedula);
+  document.body.style.cssText = `margin:0;padding:0;background:white;width:${w}px;height:${h}px;overflow:hidden;`;
+  document.documentElement.style.cssText = `margin:0;padding:0;width:${w}px;height:${h}px;overflow:hidden;`;
+}, { w: CEDULA_WIDTH, h: CEDULA_HEIGHT });
+
+await page.waitForTimeout(500);
+
+// Generar SVG usando html-to-image sobre el elemento aislado
 console.log('Generando SVG...');
 await page.addScriptTag({ path: './node_modules/html-to-image/dist/html-to-image.js' });
 
@@ -115,10 +137,8 @@ const svgContent = decodeURIComponent(svgDataUrl.split(',').slice(1).join(','));
 writeFileSync(OUTPUT_SVG, svgContent, 'utf-8');
 console.log(`✓ SVG guardado: ${resolve(OUTPUT_SVG)}`);
 
-// Generar PDF ajustado al tamaño de la cédula
+// Generar PDF con el viewport exacto al tamaño de la cédula y sin márgenes
 console.log('Generando PDF...');
-
-// Ajustar viewport para el PDF
 await page.setViewportSize({ width: CEDULA_WIDTH, height: CEDULA_HEIGHT });
 
 const pdfBuffer = await page.pdf({
