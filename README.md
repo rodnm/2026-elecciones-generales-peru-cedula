@@ -1,6 +1,6 @@
 # Cédula de Votación — Elecciones Generales Perú 2026
 
-Descarga automática de la cédula de votación del simulador [votabien.pe](https://votabien.pe/) en formato PNG y PDF, lista para imprimir o compartir.
+Descarga automática de la cédula de votación del simulador [votabien.pe](https://votabien.pe/) en formato PNG, SVG y PDF, lista para imprimir o compartir.
 
 ## ¿Qué hace este proyecto?
 
